@@ -1,10 +1,14 @@
 import { Formik } from "formik";
 import AutosuggestByValue from "./components/AutosuggestByValue/AutosuggestByValue";
-import logo from "./logo.svg";
-import "./App.css";
+
 import { useLazyGetAddressQuery } from "./API/apiSlice";
+import "./App.css";
 
 function App() {
+  const initialValues = {
+    correspondent_address: "",
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -12,18 +16,20 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p> */}
-        <Formik onSubmit={(val) => alert(val)}>
-          {({ handleSubmit }) => {
-            <form>
-              <AutosuggestByValue
-                id="correspondent_address"
-                label="Адрес корреспондента"
-                placeholder="Добавить адрес"
-                lazyQuery={useLazyGetAddressQuery}
-              />
-            </form>;
-          }}
-        </Formik>
+        <div className="search">
+          <Formik initialValues={initialValues} onSubmit={(val) => alert(val)}>
+            {(props) => (
+              <form>
+                <AutosuggestByValue
+                  id="correspondent_address"
+                  label="Адрес корреспондента"
+                  placeholder="Добавить адрес"
+                  lazyQuery={useLazyGetAddressQuery}
+                />
+              </form>
+            )}
+          </Formik>
+        </div>
       </header>
     </div>
   );
